@@ -8,6 +8,7 @@ public class MainActivity extends AppCompatActivity {
     //Adrian's comment
     // Tim's comment line 9
     // Samuel's comment
+    // this is the line to have merge conflicts Tim
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
