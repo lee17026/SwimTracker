@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Swim Tracker</string>
     <string name="title_activity_add_session">AddSessionActivity</string>
+    <string name="date_input">Date</string>
+    <string name="length_input">Length</string>
+    <string name="laps_input"># of Laps</string>
+    <string name="time_input">Time</string>
 </resources>
