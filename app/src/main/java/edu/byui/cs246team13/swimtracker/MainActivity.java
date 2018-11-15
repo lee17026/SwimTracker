@@ -1,9 +1,12 @@
 package edu.byui.cs246team13.swimtracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +49,19 @@ public class MainActivity extends AppCompatActivity {
         // use our custom adapter
         _adapter = new SessionAdapter(_sessions);
         _recyclerView.setAdapter(_adapter);
+
+        Button btnActivity = findViewById(R.id.btnOpenSettings);
+        btnActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity();
+            }
+        });
+
+        private void openActivity(){
+            Intent settings = new Intent(this, SettingsActivity.class);
+            startActivity(settings);
+        }
 
 
     }
