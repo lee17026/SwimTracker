@@ -11,6 +11,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView _recyclerView;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     //Adrian's comment
     // Tim's comment line 9
     // Samuel's comment
-    // Push fight! Whose commit will win??
+    //:D
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // use our custom adapter
         _adapter = new SessionAdapter(_sessions);
         _recyclerView.setAdapter(_adapter);
-
+        
         Button btnActivity = findViewById(R.id.btnOpenSettings);
         btnActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,12 +59,9 @@ public class MainActivity extends AppCompatActivity {
                 openActivity();
             }
         });
-
-        private void openActivity(){
-            Intent settings = new Intent(this, SettingsActivity.class);
-            startActivity(settings);
-        }
-
-
+    }
+    private void openActivity(){
+        Intent settings = new Intent(this, SettingsActivity.class);
+        startActivity(settings);
     }
 }
