@@ -9,7 +9,7 @@ public class Session {
     private double _numLaps;
     private double _time; // milliseconds
     private int _calories;
-    private double _speed; // meter per second
+    private double _speed; // meters per second
     private double _totalDistance;
 
     // default constructor
