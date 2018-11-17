@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         // use our custom adapter
         _adapter = new SessionAdapter(_sessions);
         _recyclerView.setAdapter(_adapter);
-        
+
+        // link up settings button
         Button btnActivity = findViewById(R.id.btnOpenSettings);
         btnActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +60,31 @@ public class MainActivity extends AppCompatActivity {
                 openActivity();
             }
         });
+
+        // handle incoming data from AddSessionActivity
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null) {
+            final String sessionExtra = "edu.byui.cs236team13.SESSION_EXTRA";
+            double[] newSessionArray = intent.getDoubleArrayExtra(sessionExtra);
+
+            // create the new Session
+            Date newDate = new Date();
+            Session newSession = new Session(newDate, newSessionArray[0], newSessionArray[1], newSessionArray[2]);
+
+            // add into our array list
+            _sessions.add(newSession);
+            _adapter.notifyDataSetChanged();
+        }
     }
     private void openActivity(){
         Intent settings = new Intent(this, SettingsActivity.class);
         startActivity(settings);
+    }
+
+    public void openAddSession(View v) {
+        Intent intent = new Intent(this, AddSessionActivity.class);
+        startActivity(intent);
     }
 }
