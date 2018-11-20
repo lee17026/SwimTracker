@@ -79,4 +79,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="btn_addSession">Add New Session</string>
+    <string name="btn_addNewSession">Add This Session</string>
 </resources>

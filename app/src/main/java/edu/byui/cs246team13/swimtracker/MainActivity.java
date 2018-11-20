@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager _layoutManager;
 
     private List _sessions;
+
+    // tag for our log
+    private static final String TAG = "MainActivity";
 
 
     //Adrian's comment
@@ -72,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
             // create the new Session
             Date newDate = new Date();
             Session newSession = new Session(newDate, newSessionArray[0], newSessionArray[1], newSessionArray[2]);
+
+            // log our new session
+            Log.d(TAG, "New session created with total distance == " + newSession.get_totalDistance() + " and speed == " + newSession.get_speed());
 
             // add into our array list
             _sessions.add(newSession);
