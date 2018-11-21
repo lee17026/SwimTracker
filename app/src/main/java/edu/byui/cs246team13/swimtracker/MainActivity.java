@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter _adapter;
     private RecyclerView.LayoutManager _layoutManager;
 
-    private List _sessions;
+    private List<Session> _sessions;
 
     // tag for our log
     private static final String TAG = "MainActivity";
@@ -80,9 +80,12 @@ public class MainActivity extends AppCompatActivity {
             // log our new session
             Log.d(TAG, "New session created with total distance == " + newSession.get_totalDistance() + " and speed == " + newSession.get_speed());
 
-            // add into our array list
+            // add into our array list and update the recycler view
             _sessions.add(newSession);
             _adapter.notifyDataSetChanged();
+
+            // just test some functions
+            findLongestDistance(_sessions);
         }
     }
     private void openActivity(){
@@ -93,5 +96,35 @@ public class MainActivity extends AppCompatActivity {
     public void openAddSession(View v) {
         Intent intent = new Intent(this, AddSessionActivity.class);
         startActivity(intent);
+    }
+
+    private void findLongestDistance(List<Session> sessions) {
+        // trackers
+        Session longestSession;
+        double currentLongest = 0.0;
+
+        // search through all sessions
+        for (Session session : sessions) {
+            if (session.get_totalDistance() > currentLongest) {
+                longestSession = session;
+                currentLongest = session.get_totalDistance();
+            }
+        } // end of for loop
+
+        Log.d(TAG, "The longest distance swam was: " + currentLongest);
+    }
+
+    private void findFastestSpeed(List<Session> sessions) {
+        Session fastestSession;
+        long currentFastest = 0;
+
+        for (Session session : sessions) {
+            if (session.get_speed() > currentFastest) {
+                fastestSession = session;
+                currentFastest = session.get_speed();
+            }
+        }
+
+        // do something with this data
     }
 }
