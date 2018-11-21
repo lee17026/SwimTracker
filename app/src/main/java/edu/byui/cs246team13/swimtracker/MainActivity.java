@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void findFastestSpeed(List<Session> sessions) {
         Session fastestSession;
-        long currentFastest = 0;
+        double currentFastest = 0;
 
         for (Session session : sessions) {
             if (session.get_speed() > currentFastest) {
