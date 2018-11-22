@@ -16,8 +16,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:hint="Date"
         android:inputType="date"
-        android:text="@string/date_input"
         app:layout_constraintBottom_toTopOf="@+id/length_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -30,8 +30,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:hint="Length"
         android:inputType="number"
-        android:text="@string/length_input"
         app:layout_constraintBottom_toTopOf="@+id/laps_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,8 +44,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:hint="# of Laps"
         android:inputType="number"
-        android:text="@string/laps_input"
         app:layout_constraintBottom_toTopOf="@+id/time_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -58,8 +58,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="80dp"
         android:ems="10"
+        android:hint="Time"
         android:inputType="time"
-        android:text="@string/time_input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

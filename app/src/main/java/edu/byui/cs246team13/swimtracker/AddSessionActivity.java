@@ -1,5 +1,6 @@
 package edu.byui.cs246team13.swimtracker;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-
-import java.util.Date;
 
 public class AddSessionActivity extends AppCompatActivity {
 
