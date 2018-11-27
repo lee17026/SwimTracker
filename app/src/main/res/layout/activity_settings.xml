@@ -6,7 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsActivity"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Units"
+        android:gravity="center_vertical"
+        />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/spUnits"
+        android:spinnerMode="dropdown"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -14,21 +29,35 @@
         android:id="@+id/lblWeight"
         android:gravity="center_vertical"
         android:text="Weight: "/>
-    <EditText
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center_vertical"
-        android:hint="45Kg"
-        android:id="@+id/txtWeight"/>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/txtWeight"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:hint="45"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:hint="KG"
+            android:layout_toEndOf="@id/txtWeight"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:id="@+id/lblWeightUnit"/>
+
+    </RelativeLayout>
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnSaveSettings"
         android:text="Save Settings"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:id="@+id/btnLoad"
-        android:text="Load Data"/>
 
 </LinearLayout>
