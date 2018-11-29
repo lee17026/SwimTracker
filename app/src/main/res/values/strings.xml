@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">Swim Tracker</string>
     <string name="title_activity_add_session">AddSessionActivity</string>
-    <string name="date_input">Date</string>
-    <string name="length_input">Length</string>
-    <string name="laps_input"># of Laps</string>
-    <string name="time_input">Time</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="unit_weight_imperial">Pounds</string>\
+    <string name="unit_weight_metric">Kilograms</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
