@@ -3,7 +3,10 @@ package edu.byui.cs246team13.swimtracker;
 import java.util.Date;
 
 
-
+/**
+ * Class to represent a single swim session.
+ * @author Team13
+ */
 public class Session {
     // member variables
     private Date _date;
@@ -15,17 +18,15 @@ public class Session {
     private double _totalDistance;
 
     /**
-     * Contains session data
-     * Assigns parameters:
+     * Represents a single swim session.
+     * <p>
+     * Automatically calculates calories burned, total distance, and speed within
+     * the constructor.
      * @param date day the session happened
      * @param poolLength length of pool (specified in Settings)
      * @param numLaps number of laps
      * @param time time it took to complete session (milliseconds)
-     *
-     * Automatically calculates calories burned, total distance, and speed.
-     *
      */
-
     Session(Date date, double poolLength, double numLaps, double time) {
         this._date = date;
         this._poolLength = poolLength;
@@ -54,6 +55,10 @@ public class Session {
         return 0;
     }
 
+    /**
+     * Returns the day the session occurred on.
+     * @return Date object.
+     */
     public Date get_date() {
         return _date;
     }
