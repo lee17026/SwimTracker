@@ -98,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openStopwatch(View v) {
+        Intent intent = new Intent(this, Stopwatch.class);
+        startActivity(intent);
+    }
+
     private void findLongestDistance(List<Session> sessions) {
         // trackers
         Session longestSession;
