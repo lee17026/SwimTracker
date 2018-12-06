@@ -4,6 +4,7 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 
 public class Stopwatch extends AppCompatActivity {
@@ -11,18 +12,25 @@ public class Stopwatch extends AppCompatActivity {
     private Chronometer chronometer;
     private long pauseOffset;
     private boolean running;
+    private Button btnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stopwatch);
 
-        chronometer = findViewById(R.id.chronometer);
+        chronometer = findViewById(R.id.chBestTime);
+        btnStart = findViewById(R.id.toggleButton);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startChronometer();
+            }
+        });
     }
 
-    public void startChronometer(View v) {
+    public void startChronometer() {
         if (!running) {
-            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             chronometer.start();
             running = true;
         }
