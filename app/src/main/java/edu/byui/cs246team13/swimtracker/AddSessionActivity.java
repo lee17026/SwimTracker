@@ -7,10 +7,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Date;
+
 public class AddSessionActivity extends AppCompatActivity {
+    // database
+    private DatabaseReference _database;
+
+    private static final String TAG = "AddSessionActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,21 @@ public class AddSessionActivity extends AppCompatActivity {
         Double length = new Double(lengthTxt.getText().toString());
         Double lap = new Double(lapTxt.getText().toString());
         Double time = new Double(timeTxt.getText().toString());
+
+        // SIDE BAR
+        // get user's info
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userID = currentFirebaseUser.getUid();
+        String username = currentFirebaseUser.getDisplayName();
+        // link up Firebase
+        _database = FirebaseDatabase.getInstance().getReference(userID);
+        String sessionKey = _database.child("sessions").push().getKey();
+        _database.child("username").setValue(username);
+        // insert this new session
+        Date today = new Date();
+        Session thisSession = new Session(today, length, lap, time);
+        _database.child("sessions").child(sessionKey).setValue(thisSession);
+        Log.d(TAG, "Line 64 userID == " + userID);
 
         // create the new Session array
         double[] newSession = new double[3];
