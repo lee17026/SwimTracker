@@ -14,11 +14,19 @@ import java.util.Date;
 import java.util.List;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView _recyclerView;
     private RecyclerView.Adapter _adapter;
     private RecyclerView.LayoutManager _layoutManager;
+    private FirebaseAuth _auth;
+
+    // just for testing
+    private TextView _editText;
 
     private List<Session> _sessions;
 
@@ -87,10 +95,37 @@ public class MainActivity extends AppCompatActivity {
             // just test some functions
             findLongestDistance(_sessions);
         }
-    }
+
+        // link up the button
+        Button btnLogin = findViewById(R.id.login_act_button);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLoginActivity();
+            }
+        });
+
+        // testing for authentication
+        _auth = FirebaseAuth.getInstance();
+        if (_auth.getCurrentUser() != null) {
+            //_auth = FirebaseAuth.getInstance();
+            _editText = findViewById(R.id.textView);
+            FirebaseUser user = _auth.getCurrentUser();
+            _editText.setText(user.getDisplayName());
+        }
+
+
+
+    } // end of onCreate()
+
     private void openActivity(){
         Intent settings = new Intent(this, SettingsActivity.class);
         startActivity(settings);
+    }
+
+    private void openLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     public void openAddSession(View v) {

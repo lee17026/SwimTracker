@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "608515064571",
+    "firebase_url": "https://swim-tracker-d6b25.firebaseio.com",
+    "project_id": "swim-tracker-d6b25",
+    "storage_bucket": "swim-tracker-d6b25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608515064571:android:413858cc38a5c0e8",
+        "android_client_info": {
+          "package_name": "edu.byui.cs246team13.swimtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608515064571-vj9a5okivvo1kh0js9leughp92hpjj66.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.byui.cs246team13.swimtracker",
+            "certificate_hash": "607c1cef258aca4beff4113b26a33827e3ef4a8f"
+          }
+        },
+        {
+          "client_id": "608515064571-2mqqru06g1r775vmm89is1qksh9t66r0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBgrRwqlzoMwFEcV0GMknVzjAr8KLVNos"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608515064571-2mqqru06g1r775vmm89is1qksh9t66r0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

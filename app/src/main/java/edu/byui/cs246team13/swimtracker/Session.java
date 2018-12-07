@@ -38,6 +38,10 @@ public class Session {
         set_calories(calculateCalories());
     }
 
+    Session() {
+
+    }
+
     private double calculateTotalDistance() {
         return _poolLength * _numLaps;
     }
