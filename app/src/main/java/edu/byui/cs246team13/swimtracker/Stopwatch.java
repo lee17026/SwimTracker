@@ -12,7 +12,6 @@ public class Stopwatch extends AppCompatActivity {
     private Chronometer chronometer;
     private long pauseOffset;
     private boolean running;
-    private Button btnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,23 +19,15 @@ public class Stopwatch extends AppCompatActivity {
         setContentView(R.layout.activity_stopwatch);
 
         chronometer = findViewById(R.id.chBestTime);
-        btnStart = findViewById(R.id.toggleButton);
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startChronometer();
-            }
-        });
     }
 
-    public void startChronometer() {
+    public void startChronometer(View v) {
         if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             chronometer.start();
             running = true;
         }
-    }
-    public void pauseChronometer(View v) {
-        if (running) {
+        else if (running) {
             chronometer.stop();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
