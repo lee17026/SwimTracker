@@ -55,4 +55,15 @@
         app:layout_constraintBottom_toTopOf="@+id/btnOpenSettings"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="openStopwatch"
+        android:text="stopwatch"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddSession"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -32,6 +32,7 @@
             android:name=".LoginActivity">
 
         </activity>
+        <activity android:name=".Stopwatch"></activity>
     </application>
 
 </manifest>
