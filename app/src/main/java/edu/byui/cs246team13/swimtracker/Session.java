@@ -1,5 +1,9 @@
 package edu.byui.cs246team13.swimtracker;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.Date;
 
 
@@ -23,15 +27,15 @@ public class Session {
      * Automatically calculates calories burned, total distance, and speed within
      * the constructor.
      * @param date day the session happened
-     * @param poolLength length of pool (specified in Settings)
+     * @param poolLength length of pool (meters)
      * @param numLaps number of laps
-     * @param time time it took to complete session (milliseconds)
+     * @param time time it took to complete session (seconds)
      */
     Session(Date date, double poolLength, double numLaps, double time) {
         this._date = date;
-        this._poolLength = poolLength;
-        this._numLaps = numLaps;
-        this._time = time;
+        set_poolLength(poolLength);
+        set_numLaps(numLaps);
+        set_time(time);
 
         set_totalDistance(calculateTotalDistance());
         set_speed(calculateSpeed());
@@ -51,12 +55,32 @@ public class Session {
         if (_time <= 0.0) {
             return 0.0;
         }
-        return _totalDistance / _time / 1000.0; // converts to m/s
+        return _totalDistance / _time; // m/s
     }
 
     private int calculateCalories() {
+        //return 0;
+
         // use the user's weight and time swimming to calculate calories burned
-        return 0;
+        Context applicationContext = MainActivity.get_contextOfApplication();
+        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+        final String units = settings.getString("weightUnit", "Imperial");
+        final String strWeight = settings.getString("userWeight", "40");
+        double weight = 1;
+
+        // determine the user's settings for weight
+        if (units == "Imperial") {
+            // we're working with pounds
+            weight = Double.parseDouble(strWeight) * 0.453592;
+        } else { // metric
+            // we're working with kgs
+            weight = Double.parseDouble(strWeight);
+        }
+
+        // calculate calories burned
+        int calories = (int)(weight * get_speed() * get_time() * 700);
+        return calories;
+
     }
 
     /**

@@ -1,5 +1,6 @@
 package edu.byui.cs246team13.swimtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth _auth;
 
     // just for testing
-    private TextView _editText;
+    private TextView _editText; // this can get deleted for the final version
 
     private List<Session> _sessions;
 
     // tag for our log
     private static final String TAG = "MainActivity";
+
+    public static Context _contextOfApplication;
 
 
     //Adrian's comment
@@ -42,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // set up context
+        _contextOfApplication = getApplicationContext();
 
         // set up a dummy array list
         _sessions = new ArrayList<Session>();
@@ -114,6 +120,14 @@ public class MainActivity extends AppCompatActivity {
             _editText.setText(user.getDisplayName());
         }
 
+        Button btnLogout = findViewById(R.id.logout_button);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
 
 
     } // end of onCreate()
@@ -166,5 +180,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // do something with this data
+    }
+
+    public static Context get_contextOfApplication() {
+        return _contextOfApplication;
+    }
+
+    private void logout() {
+        _auth = FirebaseAuth.getInstance();
+        if (_auth.getCurrentUser() != null) {
+            _auth.signOut();
+        }
     }
 }

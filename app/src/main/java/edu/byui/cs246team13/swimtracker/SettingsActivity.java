@@ -111,4 +111,10 @@ public class SettingsActivity extends AppCompatActivity {
         double metric = imperial * 0.453592;
         txtWeight.setText(String.valueOf(metric));
     }
+
+    /*
+    public Context getContext() {
+        Context context = SettingsActivity.this;
+        return context;
+    }*/
 }
