@@ -65,8 +65,9 @@ public class AddSessionActivity extends AppCompatActivity {
         Date today = new Date();
         Session thisSession = new Session(today, length, lap, time);
         _database.child("sessions").child(sessionKey).setValue(thisSession);
-        Log.d(TAG, "Line 64 userID == " + userID);
+        Log.d(TAG, "Line 68 userID == " + userID);
 
+        /*
         // create the new Session array
         double[] newSession = new double[3];
         newSession[0] = length;
@@ -75,8 +76,9 @@ public class AddSessionActivity extends AppCompatActivity {
 
         // store new Session to send
         final String sessionExtra = "edu.byui.cs236team13.SESSION_EXTRA";
+        */
         Intent intent = new Intent(AddSessionActivity.this, MainActivity.class);
-        intent.putExtra(sessionExtra, newSession);
+        //intent.putExtra(sessionExtra, newSession);
 
         // send back to Main Activity
         startActivity(intent);
