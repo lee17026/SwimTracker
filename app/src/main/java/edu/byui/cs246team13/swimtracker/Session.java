@@ -78,7 +78,7 @@ public class Session {
         }
 
         // calculate calories burned
-        int calories = (int)(weight * get_speed() * get_time() * 700);
+        int calories = (int)(weight * get_time() / 60.0 / 60.0 * 6.936);
         return calories;
 
     }
