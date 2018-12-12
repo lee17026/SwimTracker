@@ -19,6 +19,13 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView _recyclerView;
@@ -51,10 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
         // set up a dummy array list
         _sessions = new ArrayList<Session>();
+        /*
         Date today = new Date();
         for (int i = 0; i < 25; i++) {
             _sessions.add(new Session(today, i + 0.50, i + 2.5, i + 5.5));
         }
+        */
 
         // link up recycler view
         _recyclerView = (RecyclerView) findViewById(R.id.session_view);
@@ -120,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             _editText.setText(user.getDisplayName());
         }
 
+        // link up log out button (maybe move to settings)
         Button btnLogout = findViewById(R.id.logout_button);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +138,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // read data from database
+        if (_auth.getCurrentUser() != null) {
+            // Get a reference to our posts
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference((_auth.getUid()) + "/sessions");
 
+            // Attach a listener to read the data at our posts reference
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //
+                    //Log.d(TAG, dataSnapshot.toString());
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        //Log.d(TAG, child.toString());
+                        Session session = child.getValue(Session.class);
+                        _sessions.add(session);
+                    }
+
+                    _adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "Unable to read from database.");
+                }
+            });
+        }
 
     } // end of onCreate()
 

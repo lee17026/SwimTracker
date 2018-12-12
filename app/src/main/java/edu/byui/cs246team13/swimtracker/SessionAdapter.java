@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionViewHolder> {
@@ -54,12 +58,27 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
     public void onBindViewHolder(SessionViewHolder holder, int position) {
         holder._textView1.setText("Total Distance: "
                 + String.valueOf(_dataset.get(position).get_totalDistance())
-                + "      Time: "
+                + "    Time (seconds): "
                 + String.valueOf(_dataset.get(position).get_time()));
 
+        // format date
+        /*
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = _dataset.get(position).get_date();
+        Date formattedDate = date;
+        try {
+            formattedDate = formatter.parse(formatter.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder._textView2.setText("Date: "
+                + String.valueOf(formattedDate)
+                + "      Calories: "
+                + String.valueOf(_dataset.get(position).get_calories()));
+                */
         holder._textView2.setText("Date: "
                 + String.valueOf(_dataset.get(position).get_date())
-                + "      Calories: "
+                + "        Calories: "
                 + String.valueOf(_dataset.get(position).get_calories()));
     }
 
