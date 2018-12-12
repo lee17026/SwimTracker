@@ -67,7 +67,6 @@ public class AddSessionActivity extends AppCompatActivity {
         Double lap = new Double(lapTxt.getText().toString());
         Double time = new Double(timeTxt.getText().toString());
 
-        // SIDE BAR
         // get user's info
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String userID = currentFirebaseUser.getUid();
@@ -77,11 +76,10 @@ public class AddSessionActivity extends AppCompatActivity {
         String sessionKey = _database.child("sessions").push().getKey();
         _database.child("username").setValue(username);
         // insert this new session
-        //Date today = new Date();
         Session thisSession = new Session(_date, length, lap, time);
         _database.child("sessions").child(sessionKey).setValue(thisSession);
 
-        /*
+        /* older method of sending this session's data
         // create the new Session array
         double[] newSession = new double[3];
         newSession[0] = length;

@@ -9,20 +9,6 @@
     tools:showIn="@layout/activity_add_session">
 
     <EditText
-        android:id="@+id/date_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Date"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/length_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
         android:id="@+id/length_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -77,15 +63,16 @@
 
     <Button
         android:id="@+id/btn_datePicker"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="16dp"
         android:onClick="showDatePickerDialog"
         android:text="Select Date"
         app:layout_constraintBottom_toTopOf="@+id/textView_date"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -94,9 +81,9 @@
         android:layout_height="31dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="8dp"
         android:text="No date selected."
-        app:layout_constraintBottom_toTopOf="@+id/date_text"
+        app:layout_constraintBottom_toTopOf="@+id/length_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
