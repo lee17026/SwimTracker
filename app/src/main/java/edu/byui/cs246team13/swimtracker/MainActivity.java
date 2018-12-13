@@ -16,12 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -251,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
     protected  void onRestart() {
         super.onRestart();
         setData();
-        _adapter.set_dataset(_sessions);
+        _adapter.setDataset(_sessions);
         // NotifyDataSetChanged tells the recyclerview that there is
         // new data and needs to be updated
         _adapter.notifyDataSetChanged();
