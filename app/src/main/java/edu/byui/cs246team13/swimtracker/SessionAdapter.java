@@ -61,21 +61,6 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
                 + "    Time (seconds): "
                 + String.valueOf(_dataset.get(position).get_time()));
 
-        // format date
-        /*
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = _dataset.get(position).get_date();
-        Date formattedDate = date;
-        try {
-            formattedDate = formatter.parse(formatter.format(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        holder._textView2.setText("Date: "
-                + String.valueOf(formattedDate)
-                + "      Calories: "
-                + String.valueOf(_dataset.get(position).get_calories()));
-                */
         holder._textView2.setText("Date: "
                 + String.valueOf(_dataset.get(position).get_date())
                 + "        Calories: "

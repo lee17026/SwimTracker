@@ -25,16 +25,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView _recyclerView;
     private RecyclerView.Adapter _adapter;
     private RecyclerView.LayoutManager _layoutManager;
     private FirebaseAuth _auth;
-
-    // just for testing
-    private TextView _editText; // this can get deleted for the final version
 
     private List<Session> _sessions;
 
@@ -43,11 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static Context _contextOfApplication;
 
-
-    //Adrian's comment
-    // Tim's comment line 9
-    // Samuel's comment
-    //:D
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,12 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
         // testing for authentication
         _auth = FirebaseAuth.getInstance();
-        if (_auth.getCurrentUser() != null) {
-            //_auth = FirebaseAuth.getInstance();
-            _editText = findViewById(R.id.textView);
-            FirebaseUser user = _auth.getCurrentUser();
-            _editText.setText(user.getDisplayName());
-        }
 
         // link up log out button (maybe move to settings)
         Button btnLogout = findViewById(R.id.logout_button);
@@ -166,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
     } // end of onCreate()
 
     private void openActivity(){
