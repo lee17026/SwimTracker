@@ -2,6 +2,7 @@ package edu.byui.cs246team13.swimtracker;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -33,6 +35,13 @@ public class AddSessionActivity extends AppCompatActivity {
 
     private static final String TAG = "AddSessionActivity";
 
+    EditText lengthTxt;
+    EditText lapTxt;
+    EditText timeTxt;
+    FloatingActionButton fab;
+
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,27 +49,30 @@ public class AddSessionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mContext = this;
+
+        // link up our edittext objects
+        lengthTxt = (EditText) findViewById(R.id.length_text);
+        lapTxt = (EditText) findViewById(R.id.laps_text);
+        timeTxt = (EditText) findViewById(R.id.time_text);
+
         // default to current date
         _date = new Date();
 
         // link up a textview
         _txtDate = findViewById(R.id.textView_date);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                sendNewSession();
             }
         });
     }
 
-    public void sendNewSession(View v) {
-        // link up our edittext objects
-        EditText lengthTxt = (EditText) findViewById(R.id.length_text);
-        EditText lapTxt = (EditText) findViewById(R.id.laps_text);
-        EditText timeTxt = (EditText) findViewById(R.id.time_text);
+    public void sendNewSession() {
+
 
         // convert
         Double length = new Double(lengthTxt.getText().toString());
@@ -78,6 +90,20 @@ public class AddSessionActivity extends AppCompatActivity {
         // insert this new session
         Session thisSession = new Session(_date, length, lap, time);
         _database.child("sessions").child(sessionKey).setValue(thisSession);
+
+
+        //Calling the database
+        DBAdapter dbAdapter = new DBAdapter(mContext);
+        dbAdapter.openDB();
+        dbAdapter.addSession(dateToString(thisSession.get_date()),  //Insert date
+                thisSession.get_poolLength(),                       //Insert length
+                thisSession.get_numLaps(),                          //Insert laps
+                thisSession.get_time(),                             //Insert time
+                thisSession.get_calories(),                         //Insert calories
+                thisSession.get_speed(),                            //Insert speed
+                thisSession.get_totalDistance());                   //Insert distance
+
+        dbAdapter.closeDB();
 
         /* older method of sending this session's data
         // create the new Session array
@@ -120,6 +146,13 @@ public class AddSessionActivity extends AppCompatActivity {
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public static String dateToString(Date mDate){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        Date date = mDate;
+        String result = format.format(date);
+        return result;
     }
 
 }

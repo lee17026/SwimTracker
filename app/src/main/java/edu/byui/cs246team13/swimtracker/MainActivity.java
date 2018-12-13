@@ -2,6 +2,7 @@ package edu.byui.cs246team13.swimtracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +32,7 @@ import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView _recyclerView;
-    private RecyclerView.Adapter _adapter;
+    private SessionAdapter _adapter;
     private RecyclerView.LayoutManager _layoutManager;
     private FirebaseAuth _auth;
 
@@ -58,25 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
         // set up a dummy array list
         _sessions = new ArrayList<Session>();
-        /*
-        Date today = new Date();
-        for (int i = 0; i < 25; i++) {
-            _sessions.add(new Session(today, i + 0.50, i + 2.5, i + 5.5));
-        }
-        */
+        setData();
 
         // link up recycler view
         _recyclerView = (RecyclerView) findViewById(R.id.session_view);
-
-        // layout size will not change so
-        _recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         _layoutManager = new LinearLayoutManager(this);
         _recyclerView.setLayoutManager(_layoutManager);
 
         // use our custom adapter
-        _adapter = new SessionAdapter(_sessions);
+        _adapter = new SessionAdapter(_sessions, _contextOfApplication);
         _recyclerView.setAdapter(_adapter);
 
         // link up settings button
@@ -228,5 +223,53 @@ public class MainActivity extends AppCompatActivity {
         if (_auth.getCurrentUser() != null) {
             _auth.signOut();
         }
+    }
+
+    public void setData(){
+        _sessions.clear();
+        DBAdapter dbAdapter = new DBAdapter(get_contextOfApplication());
+        Session newSession;
+        Cursor cursor = dbAdapter.getSessions();
+        while (cursor.moveToNext()){                                   //Index 0 = id
+            Date date = stringToDate(cursor.getString(1));  //Index 1 = Date
+            double length = cursor.getDouble(2);            //Index 2 = Length
+            double laps = cursor.getDouble(3);              //Index 3 = Laps
+            double time = cursor.getDouble(4);              //Index 4 = Time
+            int calories = cursor.getInt(5);                //Index 5 = Calories
+            double speed = cursor.getDouble(6);             //Index 6 = Speed
+            double distance = cursor.getDouble(7);          //Index 7 = Distance
+
+            newSession = new Session();
+            newSession.set_date(date);
+            newSession.set_poolLength(length);
+            newSession.set_numLaps(laps);
+            newSession.set_time(time);
+            newSession.set_calories(calories);
+            newSession.set_speed(speed);
+            newSession.set_totalDistance(distance);
+            _sessions.add(newSession);
+        }
+    }
+
+    public static Date stringToDate(String string){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        Date date = new Date();
+        try {
+            date = format.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+
+    @Override
+    protected  void onRestart() {
+        super.onRestart();
+        setData();
+        _adapter.set_dataset(_sessions);
+        // NotifyDataSetChanged tells the recyclerview that there is
+        // new data and needs to be updated
+        _adapter.notifyDataSetChanged();
     }
 }

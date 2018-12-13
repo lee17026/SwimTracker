@@ -3,23 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:maxHeight="64dp"
-    android:minHeight="64dp">
+    android:layout_height="72dp"
+    android:maxHeight="72dp"
+    android:minHeight="48dp">
 
     <TextView
         android:id="@+id/secondLine"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="26dip"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ellipsize="marquee"
+        android:gravity="left|center"
+        android:singleLine="true"
         android:text="Description"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/firstLine"
-        tools:layout_editor_absoluteX="16dp"
-        android:singleLine="true" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstLine" />
 
     <TextView
         android:id="@+id/firstLine"

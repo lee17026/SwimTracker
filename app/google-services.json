@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "608515064571-2jrn4h33aa5v97ons2ed9r0roflcmida.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.byui.cs246team13.swimtracker",
+            "certificate_hash": "dc3ae225571fb0b94f05dbeb1ddf59f5c129bed0"
+          }
+        },
+        {
           "client_id": "608515064571-2mqqru06g1r775vmm89is1qksh9t66r0.apps.googleusercontent.com",
           "client_type": 3
         }
