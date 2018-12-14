@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 
 import java.util.Date;
 
-
 /**
  * Class to represent a single swim session.
  * @author Team13

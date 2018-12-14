@@ -14,9 +14,9 @@ public class SessionTest {
         Date today = new Date();
         Session testSession = new Session(today, 15.0, 10.0, 5000.0);
 
-        assertEquals(testSession.get_date(), today);
-        assertEquals(testSession.get_poolLength(), 15.0);
-        assertEquals(testSession.get_numLaps(), 10.0);
-        assertEquals(testSession.get_time(), 5000.0);
+        assertEquals(testSession.getDate(), today);
+        assertEquals(testSession.getPoolLength(), 15.0);
+        assertEquals(testSession.getNumLaps(), 10.0);
+        assertEquals(testSession.getTime(), 5000.0);
     }
 }
