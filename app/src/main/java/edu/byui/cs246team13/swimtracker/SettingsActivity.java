@@ -1,7 +1,5 @@
 package edu.byui.cs246team13.swimtracker;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -17,12 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
-    private EditText txtWeight;
-    private TextView lblWeight;
-    private Button btnSave;
-    private Spinner spUnits;
+    private EditText mTxtWeight;
+    private TextView mLblWeight;
+    private Button mBtnSave;
+    private Spinner mSpUnits;
 
-    private String[] unitList = new String[]{"Metric","Imperial"};
+    private String[] mUnitList = new String[]{"Metric","Imperial"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +28,23 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         //Declare UI variables
-        txtWeight = findViewById(R.id.txtWeight);
-        lblWeight = findViewById(R.id.lblWeightUnit);
-        spUnits = findViewById(R.id.spUnits);
-        btnSave = findViewById(R.id.btnSaveSettings);
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        mTxtWeight = findViewById(R.id.txtWeight);
+        mLblWeight = findViewById(R.id.lblWeightUnit);
+        mSpUnits = findViewById(R.id.spUnits);
+        mBtnSave = findViewById(R.id.btnSaveSettings);
+        mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveData();
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, unitList);
-        spUnits.setAdapter(adapter);
-        spUnits.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mUnitList);
+        mSpUnits.setAdapter(adapter);
+        mSpUnits.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                updateLabels(spUnits.getSelectedItem().toString());
+                updateLabels(mSpUnits.getSelectedItem().toString());
             }
 
             @Override
@@ -61,8 +59,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void saveData(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
-        String mWeight = txtWeight.getText().toString();
-        String mUWUnit = spUnits.getSelectedItem().toString();
+        String mWeight = mTxtWeight.getText().toString();
+        String mUWUnit = mSpUnits.getSelectedItem().toString();
         editor.putString("userWeight", mWeight);
         editor.putString("weightUnit", mUWUnit);
         editor.apply();
@@ -76,14 +74,14 @@ public class SettingsActivity extends AppCompatActivity {
         final SharedPreferences settings =PreferenceManager.getDefaultSharedPreferences(this);
         final String units = settings.getString("weightUnit", "Imperial");
         final String weight = settings.getString("userWeight", "40");
-        txtWeight.setText(weight);
+        mTxtWeight.setText(weight);
         int position = mAdapter.getPosition(units);
-        spUnits.setSelection(position);
+        mSpUnits.setSelection(position);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 //Sets value of weight TextEdit to the saved data
-                txtWeight.setText(weight);
+                mTxtWeight.setText(weight);
             }
         }, 250);
     }
@@ -91,25 +89,25 @@ public class SettingsActivity extends AppCompatActivity {
     //Updates data when units is changed.
     private void updateLabels(String units){
         if (units == "Imperial"){
-            lblWeight.setHint(R.string.unit_weight_imperial);
+            mLblWeight.setHint(R.string.unit_weight_imperial);
             metricToImperial();
         }
         else if (units == "Metric"){
-            lblWeight.setHint(R.string.unit_weight_metric);
+            mLblWeight.setHint(R.string.unit_weight_metric);
             imperialToMetric();
         }
     }
 
     //Conversion formulas
     private void metricToImperial(){
-        double metric = Double.parseDouble(txtWeight.getText().toString());
+        double metric = Double.parseDouble(mTxtWeight.getText().toString());
         double imperial = metric * 2.20462;
-        txtWeight.setText(String.valueOf(imperial));
+        mTxtWeight.setText(String.valueOf(imperial));
     }
     private void imperialToMetric(){
-        double imperial = Double.parseDouble(txtWeight.getText().toString());
+        double imperial = Double.parseDouble(mTxtWeight.getText().toString());
         double metric = imperial * 0.453592;
-        txtWeight.setText(String.valueOf(metric));
+        mTxtWeight.setText(String.valueOf(metric));
     }
 
     /*
