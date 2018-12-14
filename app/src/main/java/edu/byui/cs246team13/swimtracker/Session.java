@@ -12,13 +12,13 @@ import java.util.Date;
  */
 public class Session {
     // member variables
-    private Date _date;
-    private double _poolLength; // default meters
-    private double _numLaps;
-    private double _time; // milliseconds
-    private int _calories;
-    private double _speed; // meters per second
-    private double _totalDistance;
+    private Date mDate;
+    private double mPoolLength; // default meters
+    private double mNumLaps;
+    private double mTime; // seconds
+    private int mCalories;
+    private double mSpeed; // meters per second
+    private double mTotalDistance;
 
     /**
      * Represents a single swim session.
@@ -31,7 +31,7 @@ public class Session {
      * @param time time it took to complete session (seconds)
      */
     Session(Date date, double poolLength, double numLaps, double time) {
-        this._date = date;
+        this.mDate = date;
         set_poolLength(poolLength);
         set_numLaps(numLaps);
         set_time(time);
@@ -41,25 +41,30 @@ public class Session {
         set_calories(calculateCalories());
     }
 
+    /**
+     * Default constructor needed for Realtime Database.
+     */
     Session() {
-
     }
 
     private double calculateTotalDistance() {
-        return _poolLength * _numLaps;
+        return mPoolLength * mNumLaps;
     }
 
     private double calculateSpeed() {
         // make sure we're not dividing by zero
-        if (_time <= 0.0) {
+        if (mTime <= 0.0) {
             return 0.0;
         }
-        return _totalDistance / _time; // m/s
+        return mTotalDistance / mTime; // m/s
     }
 
+    /**
+     * Calculates the number of Calories burned in this swim session using an
+     * average speed formula.
+     * @return Calories burned
+     */
     private int calculateCalories() {
-        //return 0;
-
         // use the user's weight and time swimming to calculate calories burned
         Context applicationContext = MainActivity.get_contextOfApplication();
         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(applicationContext);
@@ -69,10 +74,10 @@ public class Session {
 
         // determine the user's settings for weight
         if (units == "Imperial") {
-            // we're working with pounds
+            // we're working with pounds, so convert to kilograms
             weight = Double.parseDouble(strWeight) * 0.453592;
         } else { // metric
-            // we're working with kgs
+            // we're already working with kgs
             weight = Double.parseDouble(strWeight);
         }
 
@@ -87,15 +92,15 @@ public class Session {
      * @return Date object.
      */
     public Date get_date() {
-        return _date;
+        return mDate;
     }
 
     public void set_date(Date _date) {
-        this._date = _date;
+        this.mDate = _date;
     }
 
     public double get_poolLength() {
-        return _poolLength;
+        return mPoolLength;
     }
 
     public void set_poolLength(double _poolLength) {
@@ -103,11 +108,11 @@ public class Session {
         if (_poolLength < 0.0) {
             _poolLength = 0.0;
         }
-        this._poolLength = _poolLength;
+        this.mPoolLength = _poolLength;
     }
 
     public double get_numLaps() {
-        return _numLaps;
+        return mNumLaps;
     }
 
     public void set_numLaps(double _numLaps) {
@@ -115,11 +120,11 @@ public class Session {
         if (_numLaps < 0.0) {
             _numLaps = 0.0;
         }
-        this._numLaps = _numLaps;
+        this.mNumLaps = _numLaps;
     }
 
     public double get_time() {
-        return _time;
+        return mTime;
     }
 
     public void set_time(double _time) {
@@ -127,30 +132,30 @@ public class Session {
         if (_time < 0.0) {
             _time = 0.0;
         }
-        this._time = _time;
+        this.mTime = _time;
     }
 
     public int get_calories() {
-        return _calories;
+        return mCalories;
     }
 
     public void set_calories(int _calories) {
-        this._calories = _calories;
+        this.mCalories = _calories;
     }
 
     public double get_speed() {
-        return _speed;
+        return mSpeed;
     }
 
     public void set_speed(double _speed) {
-        this._speed = _speed;
+        this.mSpeed = _speed;
     }
 
     public double get_totalDistance() {
-        return _totalDistance;
+        return mTotalDistance;
     }
 
     public void set_totalDistance(double _totalDistance) {
-        this._totalDistance = _totalDistance;
+        this.mTotalDistance = _totalDistance;
     }
 }

@@ -7,40 +7,57 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Date;
-
+/**
+ * Adapts the local Android database.
+ * @author Team 13
+ */
 public class DBAdapter {
-    DBHelper dbHelper;
+    DBHelper mDBHelper;
     private Context mContext;
 
+    // constructor
     public DBAdapter(Context context){
         this.mContext = context;
-        dbHelper = new DBHelper(context);
+        mDBHelper = new DBHelper(context);
     }
 
-    //This method gets called when starting any Database transaction
+    /**
+     * Gets called when any local database transaction happens.
+     */
     public void openDB() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDBHelper.getWritableDatabase();
         if (db.isOpen()) {
             //Toast.makeText(mContext, mContext.getResources().getString(R.string.db_opened), Toast.LENGTH_SHORT).show();
         } else {
-            dbHelper.getWritableDatabase();
+            mDBHelper.getWritableDatabase();
         }
     }
 
-    //Close database after every transaction
+    /**
+     * Closes the database after a transaction.
+     */
     public void closeDB() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDBHelper.getWritableDatabase();
         if (db.isOpen()) {
             db.close();
         }
     }
 
-    //Add a new session to the list
+    /**
+     * Adds a new session into the database.
+     * @param date
+     * @param length
+     * @param laps
+     * @param time
+     * @param calories
+     * @param speed
+     * @param distance
+     * @return id of the newly inserted row
+     */
     public long addSession(String date, double length, double laps, double time,
                            int calories, double speed, double distance){
         long id = 0;
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDBHelper.getWritableDatabase();
         try {
             ContentValues contentValues = new ContentValues();
             contentValues.put(DBHelper.T1_DATE, date);
@@ -58,9 +75,12 @@ public class DBAdapter {
         return id;
     }
 
-    //Returns a cursor with all sessions
+    /**
+     * Gets all sessions from the database.
+     * @return Cursor that points to all sessions.
+     */
     public Cursor getSessions(){
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDBHelper.getWritableDatabase();
         Cursor cursor = null;
         String query = "SELECT * FROM " + DBHelper.TABLE_1_NAME + ";";
         try {
@@ -71,6 +91,9 @@ public class DBAdapter {
         return cursor;
     }
 
+    /**
+     * Sets up the database in SQLite.
+     */
     static class DBHelper extends SQLiteOpenHelper {
         private static final String DB_NAME = "SwimTracker";
         //CHANGE EVERY TIME YOU MAKE CHANGES TO THE DATABASE!!!
@@ -86,7 +109,6 @@ public class DBAdapter {
                 T1_CALORIES = "Calories",
                 T1_SPEED = "Speed",
                 T1_DISTANCE = "Distance";
-
 
         public DBHelper(Context context) {
             super(context, DB_NAME, null, SCHEME_VERSION);
@@ -106,8 +128,12 @@ public class DBAdapter {
             T1_DISTANCE + " DOUBLE);");
         }
 
-        //When a new version of the database is released,
-        // delete previous database and create a new one
+        /**
+         * Checks for newer versions and rewrites the database to the new version.
+         * @param db
+         * @param oldVersion
+         * @param newVersion
+         */
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try {

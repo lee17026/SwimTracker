@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,9 +65,13 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
                 + "    Time (seconds): "
                 + String.valueOf(mDataset.get(position).get_time()));
 
+        // convert the date into a nicer format
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = mDataset.get(position).get_date();
+        String dateString = format.format(date);
         holder.mTextView2.setText("Date: "
-                + String.valueOf(mDataset.get(position).get_date())
-                + "        Calories: "
+                + dateString
+                + "                                 Calories: "
                 + String.valueOf(mDataset.get(position).get_calories()));
     }
 
