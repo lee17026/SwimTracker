@@ -21,6 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+/**
+ * Login screen at beginning of app
+ * @author Team 13
+ */
+
 public class LoginActivity extends AppCompatActivity {
     //a constant for detecting the login intent result
     private static final int RC_SIGN_IN = 234;
@@ -76,7 +81,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Detects Google Sign In intent result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -98,6 +108,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Firebase authentication
+     * @param acct
+     */
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -129,7 +143,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    //this method is called on click
+    /**
+     * this method is called on click
+     *
+     */
     private void signIn() {
         //getting the google signin intent
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();

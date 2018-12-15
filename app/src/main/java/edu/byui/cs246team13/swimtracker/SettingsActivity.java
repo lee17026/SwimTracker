@@ -14,6 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Settings menu that allows users to set
+ * the unit of measurement and their weight.
+ * @author Team 13
+ */
+
 public class SettingsActivity extends AppCompatActivity {
     private EditText mTxtWeight;
     private TextView mLblWeight;
@@ -55,12 +61,16 @@ public class SettingsActivity extends AppCompatActivity {
         loadData(adapter);
     }
 
-    //Saves preferred units and user's data to Shared Preferences
+    /**
+     * Saves preferred units and user's data to Shared Preferences
+     */
     private void saveData(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
+        //stores settings in string
         String mWeight = mTxtWeight.getText().toString();
         String mUWUnit = mSpUnits.getSelectedItem().toString();
+        //puts string in editor
         editor.putString("userWeight", mWeight);
         editor.putString("weightUnit", mUWUnit);
         editor.apply();
@@ -68,7 +78,11 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    //Loads data when activity is first opened. Data is loaded from Shared Preferences
+    /**
+     * Loads data when activity is first opened. Data is loaded from Shared Preferences
+     *
+     * @param mAdapter
+     */
     private void loadData(ArrayAdapter<String> mAdapter){
         //Load shared preferences
         final SharedPreferences settings =PreferenceManager.getDefaultSharedPreferences(this);
@@ -86,19 +100,28 @@ public class SettingsActivity extends AppCompatActivity {
         }, 250);
     }
 
-    //Updates data when units is changed.
+    /**
+     * Updates data when units is changed.
+     *
+     * @param units
+     */
     private void updateLabels(String units){
+        //sets to imperial
         if (units == "Imperial"){
             mLblWeight.setHint(R.string.unit_weight_imperial);
             metricToImperial();
         }
+        //sets to metric
         else if (units == "Metric"){
             mLblWeight.setHint(R.string.unit_weight_metric);
             imperialToMetric();
         }
     }
 
-    //Conversion formulas
+    /**
+     * Conversion formulas
+     *
+     */
     private void metricToImperial(){
         double metric = Double.parseDouble(mTxtWeight.getText().toString());
         double imperial = metric * 2.20462;
@@ -109,10 +132,4 @@ public class SettingsActivity extends AppCompatActivity {
         double metric = imperial * 0.453592;
         mTxtWeight.setText(String.valueOf(metric));
     }
-
-    /*
-    public Context getContext() {
-        Context context = SettingsActivity.this;
-        return context;
-    }*/
 }
