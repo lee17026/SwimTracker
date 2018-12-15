@@ -22,8 +22,8 @@ import java.util.Date;
 
 public class Stopwatch extends AppCompatActivity {
     // firebase variables
-    private DatabaseReference _database;
-    private FirebaseAuth _auth;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     private static final String TAG = "StopwatchActivity";
 
@@ -32,10 +32,10 @@ public class Stopwatch extends AppCompatActivity {
     private boolean running;
 
     // text views
-    private TextView _recordSpeed;
-    private TextView _recordTime;
-    private TextView _thisSpeed;
-    private TextView _thisTime;
+    private TextView mRecordSpeed;
+    private TextView mRecordTime;
+    private TextView mThisSpeed;
+    private TextView mThisTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,10 @@ public class Stopwatch extends AppCompatActivity {
         chronometer = findViewById(R.id.chBestTime);
 
         // link up TextViews
-        _recordSpeed = findViewById(R.id.txt_recordSpeed);
-        _recordTime = findViewById(R.id.txt_recordTime);
-        _thisSpeed = findViewById(R.id.txt_thisSpeed);
-        _thisTime = findViewById(R.id.txt_thisTime);
+        mRecordSpeed = findViewById(R.id.txt_recordSpeed);
+        mRecordTime = findViewById(R.id.txt_recordTime);
+        mThisSpeed = findViewById(R.id.txt_thisSpeed);
+        mThisTime = findViewById(R.id.txt_thisTime);
 
         findPersonalBest();
     }
@@ -80,19 +80,19 @@ public class Stopwatch extends AppCompatActivity {
         String userID = currentFirebaseUser.getUid();
         String username = currentFirebaseUser.getDisplayName();
         // link up Firebase
-        _database = FirebaseDatabase.getInstance().getReference(userID);
-        String sessionKey = _database.child("hundredMeterSessions").push().getKey();
-        _database.child("username").setValue(username);
+        mDatabase = FirebaseDatabase.getInstance().getReference(userID);
+        String sessionKey = mDatabase.child("hundredMeterSessions").push().getKey();
+        mDatabase.child("username").setValue(username);
         // insert this new session
         Date today = new Date();
         Session thisSession = new Session(today, 100, 1, time);
-        _database.child("hundredMeterSessions").child(sessionKey).setValue(thisSession);
+        mDatabase.child("hundredMeterSessions").child(sessionKey).setValue(thisSession);
 
         // show this session's speed and time
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.CEILING);
-        _thisSpeed.setText("Speed: " + String.valueOf(df.format(thisSession.get_speed())) + " meters/second");
-        _thisTime.setText("Time: " + String.valueOf(df.format(thisSession.get_time())) + " seconds");
+        mThisSpeed.setText("Speed: " + String.valueOf(df.format(thisSession.get_speed())) + " meters/second");
+        mThisTime.setText("Time: " + String.valueOf(df.format(thisSession.get_time())) + " seconds");
     }
 
     /**
@@ -100,9 +100,9 @@ public class Stopwatch extends AppCompatActivity {
      */
     private void findPersonalBest() {
         // Get a reference to our posts
-        _auth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference((_auth.getUid()) + "/hundredMeterSessions");
+        DatabaseReference ref = database.getReference((mAuth.getUid()) + "/hundredMeterSessions");
 
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
@@ -125,8 +125,8 @@ public class Stopwatch extends AppCompatActivity {
                 // display personal best info
                 DecimalFormat df = new DecimalFormat("#.###");
                 df.setRoundingMode(RoundingMode.CEILING);
-                _recordSpeed.setText("Speed: " + String.valueOf(df.format(personalBest.get_speed())) + " meters/second");
-                _recordTime.setText("Time: " + String.valueOf(df.format(personalBest.get_time())) + " seconds");
+                mRecordSpeed.setText("Speed: " + String.valueOf(df.format(personalBest.get_speed())) + " meters/second");
+                mRecordTime.setText("Time: " + String.valueOf(df.format(personalBest.get_time())) + " seconds");
             }
 
             @Override
